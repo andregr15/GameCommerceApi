@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes: 
+      - '/home/andre/arquivos/postgres:/var/lib/postgres/data'
+    environment: 
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: docker
+
+  app:
+    build: .
+    depends_on: 
+      - 'db'
+    ports:
+      - '3001:3000'
+    command: bash start.sh
+    volumes:
+      - '.:/app'
+      - 'gems:/gems'
+
+volumes:
+  gems:
