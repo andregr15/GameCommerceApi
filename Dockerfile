@@ -4,7 +4,8 @@ RUN apt update
 
 RUN apt upgrade -y
 
-RUN apt install libpq-dev
+RUN apt install libpq-dev libssl-dev build-essential \
+    libsqlite3-dev sqlite3 -y
 
 ENV INSTALL_PATH /app
 
