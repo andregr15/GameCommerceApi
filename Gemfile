@@ -13,6 +13,11 @@ gem 'puma', '~> 4.1'
 # Auth
 gem 'devise_token_auth', '~> 1.1.4'
 
+# Foundation for emails
+gem 'inky-rb', require: 'inky'
+# Stylesheet inlining for email
+gem 'premailer-rails'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
