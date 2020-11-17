@@ -4,4 +4,5 @@ class SystemRequirement < ApplicationRecord
   validates :storage, presence: true
   validates :processor, presence: true
   validates :memory, presence: true
+  validates :video_board, presence: true
 end
