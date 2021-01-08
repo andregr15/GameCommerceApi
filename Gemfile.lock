@@ -110,8 +110,6 @@ GEM
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    nokogiri (1.11.1-x86_64-linux)
-      racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.2.3)
     puma (4.3.7)
@@ -198,7 +196,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.4.2)
@@ -222,4 +219,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.2.3
+   2.1.4
