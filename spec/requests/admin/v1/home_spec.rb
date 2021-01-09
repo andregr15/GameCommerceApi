@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe 'Home', type: :request do
-  before :all do
-    user = create(:user)
+  let(:user) { create(:user) }
+
+  before do
     get '/admin/v1/home', headers: auth_header(user)
   end
 
