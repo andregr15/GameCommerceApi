@@ -1,5 +1,7 @@
 module Admin::V1
   class CategoriesController < ApiController
+    before_action :load_category, only: %i(show update destroy)
+
     def index
       @categories = Category.all
     end
@@ -8,6 +10,15 @@ module Admin::V1
       @category = Category.new
       @category.attributes = category_params
       save_category!
+    end
+
+    def update
+      @category.attributes = category_params
+      save_category!
+    end
+
+    def destroy
+      @category.destroy!
     end
 
     private
@@ -22,6 +33,12 @@ module Admin::V1
       render :show
     rescue
       render_error(fields: @category.errors.messages)
+    end
+
+    def load_category
+      @category = Category.find(params[:id])
+    rescue
+      render_error(message: 'category not found', status: :not_found)
     end
   end
 end
