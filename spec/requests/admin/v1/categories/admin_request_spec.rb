@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Admin::V1::Categories", type: :request do
-  let(:user) { create(:user) }
+RSpec.describe "Admin::V1::Categories as :admin", type: :request do
+  let(:user) { create(:user, profile: :admin) }
   let(:url) { '/admin/v1/categories' }
 
   context 'GET /categories' do
@@ -102,7 +102,7 @@ RSpec.describe "Admin::V1::Categories", type: :request do
       end
 
       it { expect(response).to have_http_status(:not_found) }
-      it { expect(body_json['errors']['message']).to eq('category not found') }
+      it { expect(body_json['errors']).to have_key('message') }
     end
   end
 end

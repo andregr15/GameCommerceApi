@@ -38,7 +38,7 @@ module Admin::V1
     def load_category
       @category = Category.find(params[:id])
     rescue
-      render_error(message: 'category not found', status: :not_found)
+      render_error(message: I18n.t('errors.messages.resource_not_found'), status: :not_found)
     end
   end
 end
