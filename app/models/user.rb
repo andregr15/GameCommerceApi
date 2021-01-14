@@ -3,7 +3,10 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
   include DeviseTokenAuth::Concerns::User
+  include Paginatable
+  include NameSearchable
 
   validates :name, presence: true
   validates :profile, presence: true
