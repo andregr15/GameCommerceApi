@@ -7,7 +7,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
   context 'GET /coupons' do
     let!(:coupons) { create_list(:coupon, 5) }
 
-    before do 
+    before(:each) do 
       get url, headers: auth_header(user)
     end
 
@@ -19,7 +19,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     let(:coupon) { create(:coupon) }
 
     context 'with valid id' do
-      before do
+      before(:each) do
         get url + "/#{coupon.id}", headers: auth_header
       end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     end
 
     context 'with invalid id' do
-      before do
+      before(:each) do
         get url + '/9999', headers: auth_header(user)
       end
 
@@ -41,7 +41,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     context 'with valid params' do
       let(:coupon_attributes) { { coupon: attributes_for(:coupon) }.to_json }
 
-      before do
+      before(:each) do
         post url, headers: auth_header(user), params: coupon_attributes
       end
 
@@ -53,7 +53,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     context 'with invalid params' do
       let(:invalid_coupon_attributes) {{ coupon: attributes_for(:coupon, name: nil) }.to_json }
 
-      before do 
+      before(:each) do 
         post url, headers: auth_header(user), params: invalid_coupon_attributes
       end
 
@@ -69,7 +69,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     context 'with valid params' do
       let(:coupon_attributes) { { coupon: attributes_for(:coupon) }.to_json }
 
-      before do
+      before(:each) do
         patch url + "/#{coupon.id}", headers: auth_header(user), params: coupon_attributes
       end
 
@@ -80,7 +80,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     context 'with invalid params' do
       let(:invalid_coupon_attributes) { { coupon: attributes_for(:coupon, status: nil) }.to_json }
 
-      before do
+      before(:each) do
         patch url + "/#{coupon.id}", headers: auth_header(user), params: invalid_coupon_attributes
       end
 
@@ -90,7 +90,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     end
 
     context 'with invalid coupon id' do
-      before do
+      before(:each) do
         patch url + '/9999', headers: auth_header(user)
       end
 
@@ -103,7 +103,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     let(:coupon) { create(:coupon) }
 
     context 'with valid coupon id' do
-      before do
+      before(:each) do
         delete url + "/#{coupon.id}", headers: auth_header(user)
       end
 
@@ -114,7 +114,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     end
 
     context 'with invalid coupon id' do
-      before do 
+      before(:each) do 
         delete url + "/9999", headers: auth_header(user)
       end
 

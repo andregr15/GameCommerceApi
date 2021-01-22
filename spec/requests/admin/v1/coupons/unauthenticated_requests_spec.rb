@@ -1,24 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin::V1::Categories without authentication', type: :request do
-  let(:url) { '/admin/v1/categories' }
+  let(:url) { '/admin/v1/coupons' }
 
-  context 'GET /categories' do
+  context 'GET /coupons' do
     before(:each) { get url }
     include_examples 'unauthenticated access'
   end
 
-  context 'POST /categories' do
+  context 'GET /coupons/:id' do
+    before(:each) { get url + '/1' }
+    include_examples 'unauthenticated access'
+  end
+
+  context 'POST /coupons' do
     before(:each) { post url }
     include_examples 'unauthenticated access'
   end
 
-  context 'PATCH /categories/:id' do
+  context 'PATCH /coupons/:id' do
     before(:each) { patch url + '/1' }
     include_examples 'unauthenticated access'
   end
 
-  context 'DELETE /categories/:id' do
+  context 'DELETE /coupons/:id' do
     before(:each) { delete url + '/1' }
     include_examples 'unauthenticated access'
   end

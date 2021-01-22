@@ -3,7 +3,7 @@ module Admin::V1
     before_action :load_coupon, only: %i[show update destroy]
     
     def index
-      @coupons = Coupon.all()
+      @coupons = Coupon.all
     end
 
     def show; end

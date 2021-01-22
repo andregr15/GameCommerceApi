@@ -2,8 +2,6 @@ module Admin::V1
   class ApiController < ApplicationController
     class ForbiddenAccess < StandardError; end
 
-    before_action :restrict_access_for_admin!
-
     include Authenticatable
     include SimpleErrorRenderable
 
@@ -12,6 +10,10 @@ module Admin::V1
     rescue_from ForbiddenAccess do
       render_error(message: 'Forbidden access', status: :forbidden)
     end
+
+    # important, if before rescue_from ForbiddenAccess, unauthenticated requests
+    # tests fail
+    before_action :restrict_access_for_admin!
 
     private
 
