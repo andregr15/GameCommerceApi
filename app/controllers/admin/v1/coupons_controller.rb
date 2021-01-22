@@ -1,10 +1,12 @@
 module Admin::V1
   class CouponsController < ApiController
-    before_action :load_coupon, only: %i[update destroy]
+    before_action :load_coupon, only: %i[show update destroy]
     
     def index
       @coupons = Coupon.all()
     end
+
+    def show; end
 
     def create
       @coupon = Coupon.new(coupon_params)

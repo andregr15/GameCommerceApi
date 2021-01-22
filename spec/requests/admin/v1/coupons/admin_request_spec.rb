@@ -15,6 +15,28 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     it { expect(body_json['coupons']).to contain_exactly *coupons.as_json(only: %i[name code status discount_value due_date]) }
   end
 
+  context 'GET /coupons/:id' do
+    let(:coupon) { create(:coupon) }
+
+    context 'with valid id' do
+      before do
+        get url + "/#{coupon.id}", headers: auth_header
+      end
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(body_json['coupon']).to eq(coupon.as_json(only: %i[name code status discount_value due_date])) }
+    end
+
+    context 'with invalid id' do
+      before do
+        get url + '/9999', headers: auth_header(user)
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+      it { expect(body_json['errors']).to have_key('message') }
+    end
+  end
+
   context 'POST /coupons' do
     context 'with valid params' do
       let(:coupon_attributes) { { coupon: attributes_for(:coupon) }.to_json }
@@ -37,11 +59,11 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(Coupon.count).to eq(0) }
-      it { expect(body_json['errors']['fields']).to have_key('name')}
+      it { expect(body_json['errors'][  'fields']).to have_key('name')}
     end
   end
 
-  context 'PATCH /coupon' do
+  context 'PATCH /coupons/:id' do
     let(:coupon) { create(:coupon) }
 
     context 'with valid params' do
@@ -77,7 +99,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     end
   end
 
-  context 'DELETE coupon' do
+  context 'DELETE /coupons/:id' do
     let(:coupon) { create(:coupon) }
 
     context 'with valid coupon id' do
