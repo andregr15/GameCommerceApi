@@ -78,7 +78,6 @@ RSpec.describe "Admin::V1::Categories as :admin", type: :request do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(body_json['category']).to eq(category.reload.as_json(only: %i(id name))) }
-      it { expect(category.reload.as_json(only: %i(name))).to eq(JSON.parse(category_params)['category']) }
     end
 
     context 'with invalid params' do
@@ -90,7 +89,7 @@ RSpec.describe "Admin::V1::Categories as :admin", type: :request do
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(body_json['errors']['fields']).to have_key('name') }
-      it { expect(Category.find(category.id)).to eq(category) }
+      it { expect(Category.last).to eq(category) }
     end
   end
 

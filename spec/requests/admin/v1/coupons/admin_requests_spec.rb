@@ -12,7 +12,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
     end
 
     it { expect(response).to have_http_status(:ok) }
-    it { expect(body_json['coupons']).to contain_exactly *coupons.as_json(only: %i[name code status discount_value due_date]) }
+    it { expect(body_json['coupons']).to contain_exactly *coupons.as_json(only: %i[id name code status discount_value due_date]) }
   end
 
   context 'GET /coupons/:id' do
@@ -24,7 +24,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
       end
 
       it { expect(response).to have_http_status(:ok) }
-      it { expect(body_json['coupon']).to eq(coupon.as_json(only: %i[name code status discount_value due_date])) }
+      it { expect(body_json['coupon']).to eq(coupon.as_json(only: %i[id name code status discount_value due_date])) }
     end
 
     context 'with invalid id' do
@@ -46,7 +46,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
       end
 
       it { expect(response).to have_http_status(:ok) }
-      it { expect(body_json['coupon']).to eq(Coupon.last.as_json(only: %i[name code status discount_value due_date])) }
+      it { expect(body_json['coupon']).to eq(Coupon.last.as_json(only: %i[id name code status discount_value due_date])) }
       it { expect(Coupon.count).to eq(1) }
     end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Admin::V1::Coupons as :admin', type: :request do
       end
 
       it { expect(response).to have_http_status(:ok) }
-      it { expect(body_json['coupon']).to eq(coupon.reload.as_json(only: %i[name code status discount_value due_date])) }
+      it { expect(body_json['coupon']).to eq(coupon.reload.as_json(only: %i[id name code status discount_value due_date])) }
     end
 
     context 'with invalid params' do

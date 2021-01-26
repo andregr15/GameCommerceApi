@@ -26,8 +26,9 @@ module Admin::V1
 
     def system_requirement_params
       return {} unless params.has_key?(:system_requirement)
-      params.require(:system_requirement).permit(:name, :operational_system, :storage, 
-      :processor, :memory, :video_board)
+      params.require(:system_requirement).permit(
+        :name, :operational_system, :storage, :processor, :memory, :video_board
+      )
     end
 
     def save_system_requirement!

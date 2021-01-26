@@ -12,7 +12,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :admin', type: :request do
     end
 
     it { expect(response).to have_http_status(:ok) }
-    it { expect(body_json['system_requirements']).to contain_exactly(*system_requirements.as_json(only: %i[name operational_system storage processor memory video_board])) }
+    it { expect(body_json['system_requirements']).to contain_exactly(*system_requirements.as_json(only: %i[id name operational_system storage processor memory video_board])) }
   end
 
   context 'GET /system_requirements/:id' do
@@ -24,7 +24,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :admin', type: :request do
       end
 
       it { expect(response).to have_http_status(:ok) }
-      it { expect(body_json['system_requirement']).to eq(system_requirement.as_json(only: %i[name operational_system storage processor memory video_board])) }
+      it { expect(body_json['system_requirement']).to eq(system_requirement.as_json(only: %i[id name operational_system storage processor memory video_board])) }
     end
 
     context 'with invalid id' do
@@ -47,7 +47,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :admin', type: :request do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(SystemRequirement.count).to eq(1) }
-      it { expect(body_json['system_requirement']).to eq(SystemRequirement.first.as_json(only: %i[name operational_system storage processor memory video_board])) }
+      it { expect(body_json['system_requirement']).to eq(SystemRequirement.first.as_json(only: %i[id name operational_system storage processor memory video_board])) }
     end
 
     context 'with invalid params' do
@@ -58,7 +58,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :admin', type: :request do
       end
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
-      it { expect(body_json['errors']).to have_key('fields') }
+      it { expect(SystemRequirement.count).to eq(0) }
       it { expect(body_json['errors']['fields']).to have_key('name') }
     end
   end
@@ -75,7 +75,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :admin', type: :request do
         end
 
         it { expect(response).to have_http_status(:ok) }
-        it { expect(body_json['system_requirement']).to eq(SystemRequirement.first.as_json(only: %i[name operational_system storage processor memory video_board])) }
+        it { expect(body_json['system_requirement']).to eq(SystemRequirement.first.as_json(only: %i[id name operational_system storage processor memory video_board])) }
       end
 
       context 'with invalid params' do
@@ -86,7 +86,7 @@ RSpec.describe 'Admin::V1::SystemRequirements as :admin', type: :request do
         end
 
         it { expect(response).to have_http_status(:unprocessable_entity) }
-        it { expect(body_json['errors']).to have_key('fields') }
+        it { expect(SystemRequirement.last).to eq(system_requirement) }
         it { expect(body_json['errors']['fields']).to have_key('name') }
       end
     end
